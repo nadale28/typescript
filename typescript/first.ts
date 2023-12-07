@@ -129,7 +129,7 @@ const result = add7 (1, 2);
 // 엉망진창이 되어버림
 charAt(result)
 
-// intersaction &
+// intersection &
 type A = {hello: 'world'} & {zero: 'cho'};
 const o: A = {hello: 'world', zero: 'cho'};
 
