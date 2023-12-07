@@ -86,4 +86,65 @@ const m: Greeting = 'hello hell';
 
 function rest(...args: string[]){}
 
+const enum Edirection {
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+const n = Edirection.Up;
+
+// as const가 없으면 up, down 같은 속성이 number로 추론되어버림
+const ODirection = {
+    Up: 0,
+    Down: 1,
+    Left: 2,
+    Right: 3,
+} as const;
+
+// 사용방법
+function walk(dir: Edirection) {}
+
+type Direction = typeof ODirection[keyof typeof ODirection];
+function run(dir: Direction) {}
+
+walk(Edirection.Up);
+
+run(ODirection.Down);
+
+// keyof는 머야
+// keyof는 key만 뽑아내는거, 그런데 keyof만 쓰면 obj3는 type이 아닌데 keyof써서  오류남. 그래서 keyof typeof
+// 여기에다 typeof obj3[] 이거로 감싸주면 value만 뽑아낸다
+// as const가 없다면 값들 타입추론이 number로 되어버리니 as const 도 필수
+const obj3 = {a: 1, b: 2} as const;
+type Key = typeof obj3[keyof typeof obj3];
+
+
+// union or |
+function add7 (x: string | number, y: string | number): string|number {return x+y}
+// 이 값의 결과는 3 number 임. 하지만 string|number 를 return 하므로 result도 string|number가 된다.
+const result = add7 (1, 2);
+// 이 상황에서 이런걸 사용한다면? charAt은 string에 사용되는거니까 에러 발생. 근데 result는 string이 될수도 있잖아?
+// 엉망진창이 되어버림
+charAt(result)
+
+// intersaction &
+type A = {hello: 'world'} & {zero: 'cho'};
+const o: A = {hello: 'world', zero: 'cho'};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
