@@ -133,6 +133,83 @@ charAt(result)
 type A = {hello: 'world'} & {zero: 'cho'};
 const o: A = {hello: 'world', zero: 'cho'};
 
+// 상속
+type Animal = {breath: true};
+type Poyouryu = Animal & {breed: true};
+type Human = Poyouryu & {think: true};
+
+const zerocho: Human = {breath: true, breed: true, think: true};
+
+interface B {
+    breath: true
+}
+
+interface C extends B{
+    breed: true
+}
+
+const bb: C = {breath:true, breed: true}
+
+// interface가 Human을 상속받을 수도 있다
+interface D extends Human {
+
+}
+
+// interface는 중복 선언이 가능하다
+// 선언한것들이 합쳐짐
+interface B {sleep: () => void}
+
+const cc: B = {breath:true, sleep:()=>{}}
+
+// 예전에는 interface면 I를 앞에 붙이는 네이밍 규칙이 있었지만 요즘은 그렇지 않음
+interface IProps {}
+type TType = string | number;
+enum EHello {
+    Left,
+    Right,
+}
+
+// 타입은 집합과 같은 점이 있다
+type AB = {name: string};
+type AC = {age: number};
+
+type AD = AB | AC;
+
+type AE = AB & AC;
+
+const ad: AD = {name: 'zero'}
+
+const ae: AE = {name: 'zero', age: 20}
+
+// 잉여 속성 검사
+interface AF  {a: string}
+const obj4: AF = {a: 'hello', b: 'world'};
+
+// 근데 이렇게 하면 또 괜찮음
+const obj5: AF = obj4;
+
+// void
+function af(): void {
+    return 1; // return; 은 됨
+}
+
+interface AG {
+    talk: () => void;
+}
+
+// 근데 이건 또 되네
+const ag: AG = {
+    talk() {return 'abc'}
+}
+
+// declare를 사용하면 type을 바로 구현안해도 됨
+declare function forEach(arr: number[], callback: (e1: number) => number): void
+
+let target: number[] = [];
+// return type이 void가 아닐 때 서로 다른 에러가 발생한다.
+forEach([1,2,3], e1 => {target.push(e1)});
+forEach([1,2,3], e1 => target.push(e1));
+// 위와 같은 경우 때문에 void지만 return값을 허용
 
 
 
