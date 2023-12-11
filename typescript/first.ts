@@ -213,6 +213,57 @@ forEach([1,2,3], e1 => target.push(e1));
 
 
 
+// unknown... any를 쓸 바엔 unknown을 쓰자
+
+const un: unknown = ag.talk();
+(un as AG).talk();
+
+try{
+
+}catch(error){
+    (error as Error).message
+}
+
+// 타입 가드
+function numOrStr(a: number | string) {
+    if (typeof a === 'number') {
+        a.toFixed(1);
+    }
+}
+
+function numOrNumArray(a: number | number[]) {
+    if (Array.isArray(a)){
+        a.concat(4);
+    } else {
+        a.toFixed(3);
+    }
+}
+
+class classA {
+    aaa() {}
+}
+
+class classB {
+    bbb() {}
+}
+
+function aOrb( param: classA | classB ) {
+    if (param instanceof classA) {
+        param.aaa();
+    }
+}
+
+type tyB = {type: 'b', bbb: string}
+type tyC = {type: 'c', ccc: string}
+
+function typeCheck (a: tyB | tyC){
+    if(a.type === 'b'){
+        a.bbb
+    }
+}
+
+
+
 
 
 
